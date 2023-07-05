@@ -32,7 +32,7 @@ function App() {
   //Function to get the timezone name from latitude and longitude
   const getTimeZone = async (lat, lon) => {
     try {
-      const timzoneUrl = `http://api.timezonedb.com/v2.1/get-time-zone?key=CERBC1PU4R1K&format=json&by=position&lat=${lat}&lng=${lon}`;
+      const timzoneUrl = `https://api.timezonedb.com/v2.1/get-time-zone?key=CERBC1PU4R1K&format=json&by=position&lat=${lat}&lng=${lon}`;
       const res = (await axios.get(timzoneUrl)).data.zoneName;
       return res;
     } catch (error) {
