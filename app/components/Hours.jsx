@@ -45,7 +45,7 @@ const Hours = ({ hourly, utc_offset, getWeatherIcon }) => {
                   gap: '5px',
                   type: 'slide',
                   drag: 'free',
-                  arrows: false,
+                  arrows: true,
                   pagination: false,
                   perPage: 4,
                 }}
