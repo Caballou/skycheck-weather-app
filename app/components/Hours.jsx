@@ -1,6 +1,7 @@
 import React from 'react';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/splide/dist/css/splide.min.css';
+import useMediaQuery from '../hooks/useMediaQuery';
 
 const Hours = ({ hourly, utc_offset, getWeatherIcon }) => {
   let weatherStatus = [];
@@ -28,6 +29,8 @@ const Hours = ({ hourly, utc_offset, getWeatherIcon }) => {
   }
   // console.log(hourObject);
 
+  const isSmallScreen = useMediaQuery('sm');
+
   return (
     <>
       {hourly ? (
@@ -40,29 +43,55 @@ const Hours = ({ hourly, utc_offset, getWeatherIcon }) => {
               24 Hours Forecast
             </div>
             <div className='h-40 flex flex-col'>
-              <Splide
-                options={{
-                  gap: '5px',
-                  type: 'slide',
-                  drag: 'free',
-                  arrows: true,
-                  pagination: false,
-                  perPage: 4,
-                }}
-              >
-                {hourObject.map((hour, i) => (
-                  <SplideSlide className='flex h-full' key={i}>
-                    <div className='flex flex-col justify-center items-center w-full h-40'>
-                      <div className='flex'>{hour.temp} °C</div>
-                      <div>
-                        <img src={`./icons/${hour.isDay}-${hour.icon}.svg`} />
+              {isSmallScreen ? (
+                <Splide
+                  options={{
+                    gap: '5px',
+                    type: 'slide',
+                    drag: 'free',
+                    arrows: true,
+                    pagination: false,
+                    perPage: 4,
+                  }}
+                >
+                  {hourObject.map((hour, i) => (
+                    <SplideSlide className='flex h-full' key={i}>
+                      <div className='flex flex-col justify-center items-center w-full h-40'>
+                        <div className='flex'>{hour.temp} °C</div>
+                        <div>
+                          <img src={`./icons/${hour.isDay}-${hour.icon}.svg`} />
+                        </div>
+                        <div>{hour.wind} km/h</div>
+                        <div>{hour.label}</div>
                       </div>
-                      <div>{hour.wind} km/h</div>
-                      <div>{hour.label}</div>
-                    </div>
-                  </SplideSlide>
-                ))}
-              </Splide>
+                    </SplideSlide>
+                  ))}
+                </Splide>
+              ) : (
+                <Splide
+                  options={{
+                    gap: '5px',
+                    type: 'slide',
+                    drag: 'free',
+                    arrows: false,
+                    pagination: false,
+                    perPage: 4,
+                  }}
+                >
+                  {hourObject.map((hour, i) => (
+                    <SplideSlide className='flex h-full' key={i}>
+                      <div className='flex flex-col justify-center items-center w-full h-40'>
+                        <div className='flex'>{hour.temp} °C</div>
+                        <div>
+                          <img src={`./icons/${hour.isDay}-${hour.icon}.svg`} />
+                        </div>
+                        <div>{hour.wind} km/h</div>
+                        <div>{hour.label}</div>
+                      </div>
+                    </SplideSlide>
+                  ))}
+                </Splide>
+              )}
             </div>
           </div>
         </section>
